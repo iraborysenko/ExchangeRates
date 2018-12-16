@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
         DaggerMainScreenComponent.builder()
                 .mainScreenModule(new MainScreenModule(this))
                 .build().inject(this);
+        mainPresenter.loadRates();
     }
 }
 

@@ -14,5 +14,6 @@ public interface MainScreen {
 
     interface Presenter {
 
+        void loadRates();
     }
 }

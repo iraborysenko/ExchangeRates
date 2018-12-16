@@ -11,7 +11,7 @@ import dagger.Provides;
  * Date: 16/12/18
  * Time: 14:49
  */
-@Module
+@Module(includes = NetModule.class)
 public class MainScreenModule {
     private final MainScreen.View mView;
 
