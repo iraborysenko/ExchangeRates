@@ -1,6 +1,8 @@
 package com.borysenko.exchangerates.ui;
 
 
+import com.borysenko.exchangerates.model.ExchangeRates;
+
 /**
  * Created by Android Studio.
  * User: Iryna
@@ -10,6 +12,9 @@ package com.borysenko.exchangerates.ui;
 public interface MainScreen {
     interface View {
 
+        void fillPBTable(ExchangeRates rates);
+
+        void fillNBTable(ExchangeRates rates);
     }
 
     interface Presenter {

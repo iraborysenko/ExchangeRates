@@ -6,13 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <TableLayout
+                android:id="@+id/pb_table"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="15dp"
+                tools:ignore="ObsoleteLayoutParam,UselessParent">
+
+                <TableRow
+                    android:id="@+id/lable_row"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:id="@+id/first_col" android:text="@string/currency"/>
+
+                    <TextView
+                        android:id="@+id/second_col" android:text="@string/sale"/>
+
+                    <TextView
+                        android:id="@+id/third_col" android:text="@string/purchase"/>
+
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/nb_table"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="25dp"
+                tools:ignore="ObsoleteLayoutParam">
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

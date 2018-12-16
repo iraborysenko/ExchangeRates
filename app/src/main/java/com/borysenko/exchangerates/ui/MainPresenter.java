@@ -1,10 +1,11 @@
 package com.borysenko.exchangerates.ui;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.borysenko.exchangerates.model.ExchangeRates;
-import com.borysenko.exchangerates.model.Rate;
 import com.borysenko.exchangerates.retrofit.ApiInterface;
 
 import javax.inject.Inject;
@@ -33,17 +34,18 @@ public class MainPresenter implements MainScreen.Presenter{
 
     @Override
     public void loadRates() {
-        String date = "01.12.2014";
+        String date = "01.12.2018";
         Call<ExchangeRates> call =
                 apiInterface.getRates(date);
         call.enqueue(new Callback<ExchangeRates>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(@NonNull Call<ExchangeRates>call,
                                    @NonNull Response<ExchangeRates> response) {
                 ExchangeRates rates = response.body();
                 assert rates != null;
-                Rate[] r = rates.getRates();
-                Log.e("HERE!", String.valueOf(r[0].getPurchaseRateNB()));
+                mView.fillPBTable(rates);
+                mView.fillNBTable(rates);
             }
 
             @Override
