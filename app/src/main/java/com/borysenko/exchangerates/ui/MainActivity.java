@@ -2,10 +2,14 @@ package com.borysenko.exchangerates.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -50,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
     @Override
     public void fillPBTable(ExchangeRates exRates) {
 
+        final ScrollView mNbScroll = findViewById(R.id.nb_scroll);
+
         Rate[] rates = exRates.getRates();
 
         mPbTable.setStretchAllColumns(true);
@@ -58,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
 
             if(rate.getPurchaseRate()!=0 && rate.getCurrency()!=null) {
                 TableRow tr = new TableRow(MainActivity.this);
+
+                final String selectedCur = rate.getCurrency();
 
                 //currency
                 TextView mCurrency = new TextView(MainActivity.this);
@@ -73,6 +81,25 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
                 TextView mPbSale = new TextView(MainActivity.this);
                 mPbSale.setText(String.valueOf(rate.getSaleRate()));
                 tr.addView(mPbSale, 2);
+
+                tr.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        mPbTable.setBackgroundColor(getResources().getColor(android.R.color.white));
+                        v.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+
+                        final View child = mNbTable.getChildAt(findAppropriateNBRow(selectedCur));
+                        new Handler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mNbScroll.smoothScrollTo(0, child.getBottom());
+                                child.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+                            }
+                        });
+                    }
+                });
 
                 mPbTable.addView(tr);
             }
@@ -121,9 +148,20 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
 
                 tr.addView(container, 1);
 
+                tr.setTag(rate.getCurrency());
+
                 mNbTable.addView(tr);
             }
         }
+    }
 
+    int findAppropriateNBRow(String selectedCurrency) {
+        int selectedIndex = 0;
+        for(int i = 0, j = mNbTable.getChildCount(); i < j; i++) {
+            if(mNbTable.getChildAt(i).getTag().equals(selectedCurrency)) {
+                selectedIndex = i;
+            }
+        }
+        return selectedIndex;
     }
 }

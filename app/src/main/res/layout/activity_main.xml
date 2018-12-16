@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    <!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent">-->
         <LinearLayout
             android:id="@+id/linearLayout"
             android:orientation="vertical"
@@ -40,13 +40,18 @@
 
             </TableLayout>
 
-            <TableLayout
-                android:id="@+id/nb_table"
+            <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/nb_scroll"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="25dp"
-                tools:ignore="ObsoleteLayoutParam">
-            </TableLayout>
+                android:layout_height="fill_parent">
+                <TableLayout
+                    android:id="@+id/nb_table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    tools:ignore="ObsoleteLayoutParam">
+                </TableLayout>
+            </ScrollView>
         </LinearLayout>
-    </ScrollView>
+    <!--</ScrollView>-->
 </android.support.constraint.ConstraintLayout>
