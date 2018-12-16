@@ -9,15 +9,12 @@ package com.borysenko.exchangerates.model;
  */
 public class Rate {
     private String currency;
-    private float saleRateNB;
     private float purchaseRateNB;
     private float saleRate;
     private float purchaseRate;
 
-    public Rate(String currency, float saleRateNB, float purchaseRateNB,
-                float saleRate, float purchaseRate) {
+    public Rate(String currency, float purchaseRateNB, float saleRate, float purchaseRate) {
         this.currency = currency;
-        this.saleRateNB = saleRateNB;
         this.purchaseRateNB = purchaseRateNB;
         this.saleRate = saleRate;
         this.purchaseRate = purchaseRate;
@@ -27,11 +24,7 @@ public class Rate {
         return currency;
     }
 
-    public float getSaleRateNB() {
-        return saleRateNB;
-    }
-
-    public float getPurchaseRateNB() {
+    public float getNBRate() {
         return purchaseRateNB;
     }
 
