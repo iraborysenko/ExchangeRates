@@ -1,4 +1,4 @@
-package com.borysenko.exchangerates.ui;
+package com.borysenko.exchangerates.ui.main;
 
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -20,7 +20,7 @@ import retrofit2.Response;
  * Date: 16/12/18
  * Time: 14:51
  */
-public class MainPresenter implements MainScreen.Presenter{
+public class MainPresenter implements MainScreen.Presenter {
 
     private MainScreen.View mView;
 
@@ -34,7 +34,6 @@ public class MainPresenter implements MainScreen.Presenter{
 
     @Override
     public void loadRates(String date) {
-//        String date = "01.12.2018";
         Call<ExchangeRates> call =
                 apiInterface.getRates(date);
         call.enqueue(new Callback<ExchangeRates>() {

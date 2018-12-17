@@ -4,15 +4,133 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.main.MainActivity">
 
     <TextView
+        android:id="@+id/slDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="5dp"
+        android:textSize="25sp"
+        android:layout_gravity="center"
+        android:text="@string/select_date"
+        android:textStyle="bold"
+        android:textColor="@color/colorDatePicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ScrollView
+        android:id="@+id/main_scroll"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/pb"
+                android:layout_width="248dp"
+                android:layout_height="246dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/privat"
+                    android:id="@+id/privat"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TableLayout
+                    android:id="@+id/pb_table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_below="@+id/privat"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    tools:ignore="ObsoleteLayoutParam,UselessParent">
+
+                    <TableRow
+                        android:id="@+id/lable_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/colorTextDark">
+
+                        <TextView
+                            android:id="@+id/first_col"
+                            android:layout_width="42dp"
+                            android:text="@string/currency"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/second_col"
+                            android:text="@string/sale"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/third_col"
+                            android:text="@string/purchase"
+                            android:textSize="16sp" />
+
+                    </TableRow>
+
+                </TableLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/pb"
+                android:layout_toEndOf="@+id/pb"
+                android:id="@+id/nb">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/nbu"
+                    android:id="@+id/nbu"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorTextDark"/>
+
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="400dp"
+                    android:id="@+id/nb_scroll"
+                    android:background="@color/colorBackground"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:padding="10dp"
+                    android:layout_marginEnd="15dp">
+
+                    <TableLayout
+                        android:id="@+id/nb_table"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/nbu"
+                        android:layout_marginTop="5dp"
+                        tools:ignore="ObsoleteLayoutParam" />
+                </android.support.v4.widget.NestedScrollView>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

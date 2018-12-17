@@ -1,6 +1,6 @@
 package com.borysenko.exchangerates.dagger;
 
-import com.borysenko.exchangerates.ui.MainActivity;
+import com.borysenko.exchangerates.ui.main.MainActivity;
 
 import javax.inject.Singleton;
 

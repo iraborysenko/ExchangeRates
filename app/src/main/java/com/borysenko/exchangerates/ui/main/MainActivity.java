@@ -1,4 +1,4 @@
-package com.borysenko.exchangerates.ui;
+package com.borysenko.exchangerates.ui.main;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;

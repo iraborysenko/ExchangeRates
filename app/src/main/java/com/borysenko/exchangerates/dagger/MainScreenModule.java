@@ -1,6 +1,6 @@
 package com.borysenko.exchangerates.dagger;
 
-import com.borysenko.exchangerates.ui.MainScreen;
+import com.borysenko.exchangerates.ui.main.MainScreen;
 
 import dagger.Module;
 import dagger.Provides;
