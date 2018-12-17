@@ -7,12 +7,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
-import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -26,14 +23,11 @@ import com.borysenko.exchangerates.dagger.MainScreenModule;
 import com.borysenko.exchangerates.model.ExchangeRates;
 import com.borysenko.exchangerates.model.Rate;
 
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Currency;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -46,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
     TableLayout mNbTable;
     Locale ruLocale;
 
-    private static final String TAG = "MainActivity";
     TextView mSelectedDate;
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -63,12 +56,6 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
         mNbTable = findViewById(R.id.nb_table);
         mSelectedDate = findViewById(R.id.slDate);
         ruLocale = new Locale("ru");
-
-        Calendar calendar = Calendar.getInstance();
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat mdformat = new SimpleDateFormat("dd.MM.yy");
-        String strDate = mdformat.format(calendar.getTime());
-        mSelectedDate.setText(strDate);
 
         mSelectedDate.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -92,18 +79,22 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Log.e(TAG, year + "rr" + month + "rrw" + dayOfMonth);
                 String date = dayOfMonth + "." + month + "." + year;
                 mSelectedDate.setText(date);
-
                 mainPresenter.loadRates(date);
-
             }
         };
 
-        Log.e("ddd", strDate);
-        mainPresenter.loadRates(strDate);
+        mainPresenter.loadRates(getCurrentDate());
     }
+
+    private String getCurrentDate() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        return calendar.get(Calendar.DAY_OF_MONTH) + "."
+                + calendar.get(Calendar.MONTH) + "."
+                + calendar.get(Calendar.YEAR);
+    }
+
 
     @Override
     public void fillPBTable(ExchangeRates exRates) {
@@ -141,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
                     @Override
                     public void onClick(View v)
                     {
-                        mPbTable.setBackgroundColor(getResources().getColor(android.R.color.white));
+                        clearTablesRowBackGround();
                         v.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
 
                         final View child = mNbTable.getChildAt(findAppropriateNBRow(selectedCur));
@@ -217,5 +208,15 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
             }
         }
         return selectedIndex;
+    }
+
+    void clearTablesRowBackGround() {
+        for(int i = 0, j = mNbTable.getChildCount(); i < j; i++) {
+            mNbTable.getChildAt(i).setBackgroundColor(getResources().getColor(android.R.color.white));
+        }
+
+        for(int i = 0, j = mPbTable.getChildCount(); i < j; i++) {
+            mPbTable.getChildAt(i).setBackgroundColor(getResources().getColor(android.R.color.white));
+        }
     }
 }
