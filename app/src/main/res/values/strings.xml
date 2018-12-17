@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">Exchange Rates</string>
+    <string name="app_name">Курсы Валют</string>
     <string name="currency">Валюта</string>
     <string name="sale">Продажа</string>
     <string name="purchase">Покупка</string>
     <string name="select_date">Select Date</string>
+    <string name="privat">Приват Банк</string>
+    <string name="nbu">НБУ</string>
 </resources>

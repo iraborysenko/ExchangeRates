@@ -7,12 +7,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -79,27 +79,28 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String date = dayOfMonth + "." + month + "." + year;
+                String date = dayOfMonth + "." + (month + 1) + "." + year;
                 mSelectedDate.setText(date);
                 mainPresenter.loadRates(date);
             }
         };
 
-        mainPresenter.loadRates(getCurrentDate());
+        String currentDate = getCurrentDate();
+        mainPresenter.loadRates(currentDate);
+        mSelectedDate.setText(currentDate);
     }
 
     private String getCurrentDate() {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        return calendar.get(Calendar.DAY_OF_MONTH) + "."
-                + calendar.get(Calendar.MONTH) + "."
+        return (calendar.get(Calendar.DAY_OF_MONTH)-1) + "."
+                + (calendar.get(Calendar.MONTH) + 1) + "."
                 + calendar.get(Calendar.YEAR);
     }
-
 
     @Override
     public void fillPBTable(ExchangeRates exRates) {
 
-        final ScrollView mNbScroll = findViewById(R.id.nb_scroll);
+        final NestedScrollView mNbScroll = findViewById(R.id.nb_scroll);
 
         Rate[] rates = exRates.getRates();
 
@@ -115,16 +116,19 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
                 //currency
                 TextView mCurrency = new TextView(MainActivity.this);
                 mCurrency.setText(rate.getCurrency());
+                mCurrency.setTextSize(18);
                 tr.addView(mCurrency, 0);
 
                 //purchase
                 TextView mPbPurchase = new TextView(MainActivity.this);
                 mPbPurchase.setText(String.valueOf(rate.getPurchaseRate()));
+                mPbPurchase.setTextSize(18);
                 tr.addView(mPbPurchase, 1);
 
                 //sale
                 TextView mPbSale = new TextView(MainActivity.this);
                 mPbSale.setText(String.valueOf(rate.getSaleRate()));
+                mPbSale.setTextSize(18);
                 tr.addView(mPbSale, 2);
 
                 tr.setOnClickListener(new View.OnClickListener()
@@ -133,14 +137,14 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
                     public void onClick(View v)
                     {
                         clearTablesRowBackGround();
-                        v.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+                        v.setBackgroundColor(getResources().getColor(R.color.colorDatePicker));
 
                         final View child = mNbTable.getChildAt(findAppropriateNBRow(selectedCur));
                         new Handler().post(new Runnable() {
                             @Override
                             public void run() {
                                 mNbScroll.smoothScrollTo(0, child.getBottom());
-                                child.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+                                child.setBackgroundColor(getResources().getColor(R.color.colorDatePicker));
                             }
                         });
                     }
@@ -166,8 +170,16 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
 
                 TableRow tr = new TableRow(MainActivity.this);
 
+                TableLayout.LayoutParams lp =
+                        new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
+                                TableLayout.LayoutParams.MATCH_PARENT);
+
+                lp.setMargins(0,0,0,8);
+                tr.setLayoutParams(lp);
+
                 //currency name
                 TextView mCurrency = new TextView(MainActivity.this);
+                mCurrency.setTextSize(16);
                 mCurrency.setText(rate.getCurrency().equals("BYN") ? "Белорусский рубль" :
                         Currency.getInstance(rate.getCurrency()).getDisplayName(ruLocale));
                 tr.addView(mCurrency, 0);
@@ -187,6 +199,10 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
                             exRates.getBaseCurrency()));
                     mCurCurrency.setText(String.format("100%s", rate.getCurrency()));
                 }
+
+                mCurCurrency.setTextSize(14);
+                mCurCurrency.setTextColor(getResources().getColor(android.R.color.darker_gray));
+                mNbPurchase.setTextSize(16);
 
                 container.addView(mNbPurchase);
                 container.addView(mCurCurrency);
@@ -212,11 +228,11 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
 
     void clearTablesRowBackGround() {
         for(int i = 0, j = mNbTable.getChildCount(); i < j; i++) {
-            mNbTable.getChildAt(i).setBackgroundColor(getResources().getColor(android.R.color.white));
+            mNbTable.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorBackground));
         }
 
         for(int i = 0, j = mPbTable.getChildCount(); i < j; i++) {
-            mPbTable.getChildAt(i).setBackgroundColor(getResources().getColor(android.R.color.white));
+            mPbTable.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorBackground));
         }
     }
 }
