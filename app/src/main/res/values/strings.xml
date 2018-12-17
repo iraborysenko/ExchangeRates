@@ -3,4 +3,5 @@
     <string name="currency">Валюта</string>
     <string name="sale">Продажа</string>
     <string name="purchase">Покупка</string>
+    <string name="select_date">Select Date</string>
 </resources>

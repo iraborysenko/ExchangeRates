@@ -33,8 +33,8 @@ public class MainPresenter implements MainScreen.Presenter{
     ApiInterface apiInterface;
 
     @Override
-    public void loadRates() {
-        String date = "01.12.2018";
+    public void loadRates(String date) {
+//        String date = "01.12.2018";
         Call<ExchangeRates> call =
                 apiInterface.getRates(date);
         call.enqueue(new Callback<ExchangeRates>() {

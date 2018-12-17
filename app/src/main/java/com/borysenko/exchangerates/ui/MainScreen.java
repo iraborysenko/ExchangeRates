@@ -19,6 +19,6 @@ public interface MainScreen {
 
     interface Presenter {
 
-        void loadRates();
+        void loadRates(String date);
     }
 }

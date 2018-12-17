@@ -1,13 +1,19 @@
 package com.borysenko.exchangerates.ui;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -21,8 +27,13 @@ import com.borysenko.exchangerates.model.ExchangeRates;
 import com.borysenko.exchangerates.model.Rate;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Currency;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -35,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
     TableLayout mNbTable;
     Locale ruLocale;
 
+    private static final String TAG = "MainActivity";
+    TextView mSelectedDate;
+    DatePickerDialog.OnDateSetListener mDateSetListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +61,48 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
 
         mPbTable = findViewById(R.id.pb_table);
         mNbTable = findViewById(R.id.nb_table);
+        mSelectedDate = findViewById(R.id.slDate);
         ruLocale = new Locale("ru");
 
-        mainPresenter.loadRates();
+        Calendar calendar = Calendar.getInstance();
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat mdformat = new SimpleDateFormat("dd.MM.yy");
+        String strDate = mdformat.format(calendar.getTime());
+        mSelectedDate.setText(strDate);
+
+        mSelectedDate.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        MainActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        year, month, day);
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Log.e(TAG, year + "rr" + month + "rrw" + dayOfMonth);
+                String date = dayOfMonth + "." + month + "." + year;
+                mSelectedDate.setText(date);
+
+                mainPresenter.loadRates(date);
+
+            }
+        };
+
+        Log.e("ddd", strDate);
+        mainPresenter.loadRates(strDate);
     }
 
     @Override
