@@ -59,7 +59,12 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
-                    tools:ignore="ObsoleteLayoutParam,UselessParent">
+                    android:paddingRight="22dp"
+                    android:paddingEnd="22dp"
+                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
+                    tools:ignore="ObsoleteLayoutParam,UselessParent"
+                    >
 
                     <TableRow
                         android:id="@+id/lable_row"
