@@ -6,20 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
-    <TextView
-        android:id="@+id/slDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textSize="25sp"
-        android:layout_gravity="center"
-        android:text="@string/select_date"
-        android:textStyle="bold"
-        android:textColor="@color/colorDatePicker"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ScrollView
         android:id="@+id/main_scroll"
         android:layout_width="fill_parent"
@@ -29,30 +15,52 @@
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/slDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="218dp"
+                android:layout_marginLeft="218dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/select_date"
+                android:textColor="@color/colorDatePicker"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:id="@+id/pb"
                 android:layout_width="248dp"
-                android:layout_height="246dp"
-                android:layout_marginTop="10dp">
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="45dp"
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/privat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:text="@string/privat"
-                    android:id="@+id/privat"
                     android:textColor="@color/colorTextDark"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TableLayout
                     android:id="@+id/pb_table"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="212dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/privat"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
@@ -68,7 +76,7 @@
 
                         <TextView
                             android:id="@+id/first_col"
-                            android:layout_width="42dp"
+                            android:layout_width="wrap_content"
                             android:text="@string/currency"
                             android:textSize="16sp" />
 
@@ -85,52 +93,51 @@
                     </TableRow>
 
                 </TableLayout>
-
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@+id/pb"
+                android:id="@+id/nb"
+                android:layout_width="294dp"
+                android:layout_height="430dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="45dp"
                 android:layout_toEndOf="@+id/pb"
-                android:id="@+id/nb">
+                android:layout_toRightOf="@+id/pb"
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/nbu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:text="@string/nbu"
-                    android:id="@+id/nbu"
+                    android:textColor="@color/colorTextDark"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorTextDark"/>
+                    android:textStyle="bold" />
 
                 <android.support.v4.widget.NestedScrollView
-                    android:layout_width="wrap_content"
-                    android:layout_height="400dp"
                     android:id="@+id/nb_scroll"
-                    android:background="@color/colorBackground"
+                    android:layout_width="276dp"
+                    android:layout_height="400dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginBottom="15dp"
-                    android:padding="10dp"
-                    android:layout_marginEnd="15dp">
+                    android:background="@color/colorBackground">
 
                     <TableLayout
                         android:id="@+id/nb_table"
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/nbu"
                         android:layout_marginTop="5dp"
                         tools:ignore="ObsoleteLayoutParam" />
                 </android.support.v4.widget.NestedScrollView>
             </LinearLayout>
-
         </RelativeLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>
