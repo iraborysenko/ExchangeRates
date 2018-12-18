@@ -1,5 +1,7 @@
 package com.borysenko.exchangerates.ui.chart;
 
+import java.util.List;
+
 /**
  * Created by Android Studio.
  * User: Iryna
@@ -13,5 +15,6 @@ public interface ChartScreen {
 
     interface Presenter {
 
+        void loadChartData(List<String> dateRange);
     }
 }

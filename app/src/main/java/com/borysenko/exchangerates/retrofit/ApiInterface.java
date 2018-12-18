@@ -1,5 +1,6 @@
 package com.borysenko.exchangerates.retrofit;
 
+import com.borysenko.exchangerates.model.ChartData;
 import com.borysenko.exchangerates.model.ExchangeRates;
 
 import retrofit2.Call;
@@ -18,4 +19,7 @@ public interface ApiInterface {
 
     @GET("exchange_rates?json")
     Call<ExchangeRates> getRates(@Query("date") String date);
+
+    @GET("exchange_rates?json")
+    Call<ChartData> getChartData(@Query("date") String date);
 }

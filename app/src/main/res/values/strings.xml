@@ -6,4 +6,6 @@
     <string name="select_date">Select Date</string>
     <string name="privat">Приват Банк</string>
     <string name="nbu">НБУ</string>
+    <string name="choose_first_date">Choose first date</string>
+    <string name="choose_second_date">Choose second date</string>
 </resources>
