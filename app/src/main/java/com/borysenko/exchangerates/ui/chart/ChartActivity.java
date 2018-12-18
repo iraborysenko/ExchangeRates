@@ -23,13 +23,12 @@ public class ChartActivity extends AppCompatActivity implements ChartScreen.View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_chart);
 
         DaggerChartScreenComponent.builder()
                 .chartScreenModule(new ChartScreenModule(this))
                 .build().inject(this);
 
     }
-
 
 }

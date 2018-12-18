@@ -2,6 +2,7 @@ package com.borysenko.exchangerates.ui.main;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -10,6 +11,9 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -22,6 +26,7 @@ import com.borysenko.exchangerates.dagger.DaggerMainScreenComponent;
 import com.borysenko.exchangerates.dagger.MainScreenModule;
 import com.borysenko.exchangerates.model.ExchangeRates;
 import com.borysenko.exchangerates.model.Rate;
+import com.borysenko.exchangerates.ui.chart.ChartActivity;
 
 import java.util.Calendar;
 import java.util.Currency;
@@ -235,4 +240,26 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
             mPbTable.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorBackground));
         }
     }
+
+    @SuppressLint("ResourceType")
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.xml.buttons, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.chart_button:
+                Intent intent = new Intent(this, ChartActivity.class);
+                startActivity(intent);
+                return true;
+
+            default:
+                Log.e("error", "No action");
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }
