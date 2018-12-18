@@ -17,9 +17,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.borysenko.exchangerates.R;
 import com.borysenko.exchangerates.dagger.DaggerMainScreenComponent;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
 
     TextView mSelectedDate;
     DatePickerDialog.OnDateSetListener mDateSetListener;
+    ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +63,11 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
         mPbTable = findViewById(R.id.pb_table);
         mNbTable = findViewById(R.id.nb_table);
         mSelectedDate = findViewById(R.id.slDate);
+        mProgressBar = findViewById(R.id.progress_bar);
         ruLocale = new Locale("ru");
+
+        //Date Picker
+        //------------------------------------------------------------------------------------------
 
         mSelectedDate.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -89,21 +96,16 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
                 mainPresenter.loadRates(date);
             }
         };
+        //------------------------------------------------------------------------------------------
 
         String currentDate = getCurrentDate();
-        mainPresenter.loadRates(currentDate);
         mSelectedDate.setText(currentDate);
-    }
-
-    private String getCurrentDate() {
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        return (calendar.get(Calendar.DAY_OF_MONTH)-1) + "."
-                + (calendar.get(Calendar.MONTH) + 1) + "."
-                + calendar.get(Calendar.YEAR);
+        mainPresenter.loadRates(currentDate);
     }
 
     @Override
     public void fillPBTable(ExchangeRates exRates) {
+        mPbTable.removeAllViewsInLayout();
 
         final NestedScrollView mNbScroll = findViewById(R.id.nb_scroll);
 
@@ -221,25 +223,32 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
         }
     }
 
-    int findAppropriateNBRow(String selectedCurrency) {
-        int selectedIndex = 0;
-        for(int i = 0, j = mNbTable.getChildCount(); i < j; i++) {
-            if(mNbTable.getChildAt(i).getTag().equals(selectedCurrency)) {
-                selectedIndex = i;
-            }
-        }
-        return selectedIndex;
+    @Override
+    public void showErrorToast() {
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Данные по этой дате отсутствуют", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
-    void clearTablesRowBackGround() {
-        for(int i = 0, j = mNbTable.getChildCount(); i < j; i++) {
-            mNbTable.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorBackground));
-        }
-
-        for(int i = 0, j = mPbTable.getChildCount(); i < j; i++) {
-            mPbTable.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorBackground));
-        }
+    @Override
+    public void clearTables() {
+        mPbTable.removeAllViewsInLayout();
+        mNbTable.removeAllViewsInLayout();
     }
+
+    @Override
+    public void setProgressBarVisible() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setProgressBarInvisible() {
+        mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+
+    // Items on the Action Bar
+    //----------------------------------------------------------------------------------------------
 
     @SuppressLint("ResourceType")
     @Override
@@ -262,4 +271,36 @@ public class MainActivity extends AppCompatActivity implements MainScreen.View {
         }
     }
 
+    //----------------------------------------------------------------------------------------------
+
+
+    // Selection of the appropriate row in the NBU table
+    //----------------------------------------------------------------------------------------------
+    int findAppropriateNBRow(String selectedCurrency) {
+        int selectedIndex = 0;
+        for(int i = 0, j = mNbTable.getChildCount(); i < j; i++) {
+            if(mNbTable.getChildAt(i).getTag().equals(selectedCurrency)) {
+                selectedIndex = i;
+            }
+        }
+        return selectedIndex;
+    }
+
+    void clearTablesRowBackGround() {
+        for(int i = 0, j = mNbTable.getChildCount(); i < j; i++) {
+            mNbTable.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorBackground));
+        }
+
+        for(int i = 0, j = mPbTable.getChildCount(); i < j; i++) {
+            mPbTable.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorBackground));
+        }
+    }
+    //----------------------------------------------------------------------------------------------
+
+    private String getCurrentDate() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        return calendar.get(Calendar.DAY_OF_MONTH) + "."
+                + (calendar.get(Calendar.MONTH) + 1) + "."
+                + calendar.get(Calendar.YEAR);
+    }
 }

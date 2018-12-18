@@ -11,102 +11,114 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/slDate"
+            <ProgressBar
+                android:id="@+id/progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="25sp"
-                android:layout_gravity="center"
-                android:text="@string/select_date"
-                android:textStyle="bold"
-                android:textColor="@color/colorDatePicker"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:visibility="invisible"
+                android:layout_margin="150dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/privat"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorTextDark"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"/>
+                android:orientation="vertical">
 
-            <TableLayout
-                android:id="@+id/pb_table"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                tools:ignore="ObsoleteLayoutParam,UselessParent">
-
-                <TableRow
-                    android:id="@+id/lable_row"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextDark"
-                    android:layout_marginBottom="5dp">
-
-                    <TextView
-                        android:id="@+id/first_col"
-                        android:text="@string/currency"
-                        android:textSize="16sp"/>
-
-                    <TextView
-                        android:id="@+id/second_col"
-                        android:text="@string/sale"
-                        android:textSize="16sp"/>
-
-                    <TextView
-                        android:id="@+id/third_col"
-                        android:text="@string/purchase"
-                        android:textSize="16sp"/>
-
-                </TableRow>
-
-            </TableLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"
-                android:text="@string/nbu"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorTextDark"/>
-
-            <android.support.v4.widget.NestedScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="400dp"
-                android:id="@+id/nb_scroll"
-                android:background="@color/colorBackground"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
-                android:padding="10dp"
-                android:layout_marginEnd="15dp">
-
-                <TableLayout
-                    android:id="@+id/nb_table"
-                    android:layout_width="fill_parent"
+                <TextView
+                    android:id="@+id/slDate"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    tools:ignore="ObsoleteLayoutParam" />
-            </android.support.v4.widget.NestedScrollView>
-        </LinearLayout>
+                    android:textSize="25sp"
+                    android:layout_gravity="center"
+                    android:text="@string/select_date"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorDatePicker"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/privat"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorTextDark"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TableLayout
+                    android:id="@+id/pb_table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    tools:ignore="ObsoleteLayoutParam,UselessParent">
+
+                    <TableRow
+                        android:id="@+id/lable_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextDark"
+                        android:layout_marginBottom="5dp">
+
+                        <TextView
+                            android:id="@+id/first_col"
+                            android:text="@string/currency"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/second_col"
+                            android:text="@string/sale"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/third_col"
+                            android:text="@string/purchase"
+                            android:textSize="16sp"/>
+
+                    </TableRow>
+
+                </TableLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/nbu"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorTextDark"/>
+
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="400dp"
+                    android:id="@+id/nb_scroll"
+                    android:background="@color/colorBackground"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:padding="10dp"
+                    android:layout_marginEnd="15dp">
+
+                    <TableLayout
+                        android:id="@+id/nb_table"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        tools:ignore="ObsoleteLayoutParam" />
+                </android.support.v4.widget.NestedScrollView>
+            </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

@@ -1,8 +1,7 @@
 package com.borysenko.exchangerates.ui.main;
 
-import android.os.Build;
+
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.borysenko.exchangerates.model.ExchangeRates;
@@ -34,17 +33,25 @@ public class MainPresenter implements MainScreen.Presenter {
 
     @Override
     public void loadRates(String date) {
+        //loading exchange rates for privat and nbu banks
+
+        mView.setProgressBarVisible();
         Call<ExchangeRates> call =
                 apiInterface.getRates(date);
         call.enqueue(new Callback<ExchangeRates>() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(@NonNull Call<ExchangeRates>call,
                                    @NonNull Response<ExchangeRates> response) {
                 ExchangeRates rates = response.body();
                 assert rates != null;
+                if (rates.getRates().length == 0) {
+                    mView.clearTables();
+                    mView.showErrorToast();
+                }
+
                 mView.fillPBTable(rates);
                 mView.fillNBTable(rates);
+                mView.setProgressBarInvisible();
             }
 
             @Override

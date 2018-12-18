@@ -12,6 +12,14 @@ import com.borysenko.exchangerates.model.ExchangeRates;
 public interface MainScreen {
     interface View {
 
+        void showErrorToast();
+
+        void clearTables();
+
+        void setProgressBarVisible();
+
+        void setProgressBarInvisible();
+
         void fillPBTable(ExchangeRates rates);
 
         void fillNBTable(ExchangeRates rates);
@@ -20,5 +28,6 @@ public interface MainScreen {
     interface Presenter {
 
         void loadRates(String date);
+
     }
 }
